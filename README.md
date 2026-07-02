@@ -41,3 +41,20 @@ swift measure-logo-glyphs.swift --image screenshot.png --region logo:80,120,260,
 
 Regions are image pixel coordinates in `x0,y0,x1,y1` form. When no region is
 provided, the script measures the whole image.
+
+## TeX to SVG
+
+```sh
+./tex-to-svg.py site/images/figure.tex
+./tex-to-svg.py site/images/figure.tex -o site/images/figure.svg
+./tex-to-svg.py --code '\begin{tikzpicture}\draw (0,0) circle (1);\end{tikzpicture}' -o site/images/circle.svg
+./tex-to-svg.py --mode math --code '\int_0^1 x^2\,dx' -o site/images/integral.svg
+```
+
+The tool runs `latex` to produce DVI, then `dvisvgm` to produce SVG. File inputs
+compile from the source file's directory so relative `\input{...}` paths behave
+the same as local LaTeX builds. Direct `--code` and `--stdin` input are wrapped
+in a small `standalone` document unless `--mode document` is used or
+`\documentclass` is detected. PGF/TikZ sources use PGF's `dvisvgm` driver by
+default so common figures do not require Ghostscript; pass
+`--no-pgf-dvisvgm-driver` for sources that choose their own driver.
