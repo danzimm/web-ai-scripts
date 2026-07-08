@@ -22,6 +22,20 @@ Useful options:
 ./screenshot-codex.sh URL OUT --print-metrics
 ```
 
+## Local Playwright inspector
+
+```sh
+./inspect-local.js http://127.0.0.1:8000/ --print-metrics
+./inspect-local.js --scenario .codex-scenarios/theme-editor.json
+./inspect-local.js --scenario-json '{"checks":[{"type":"count","selector":"main","equals":1}]}'
+```
+
+`inspect-local.js` is a flexible, local-only Playwright runner for inspecting
+the hpp watcher site. It refuses non-loopback URLs and writes screenshots only
+under `.codex-screenshots/`. Scenario JSON can run actions such as normal and
+shadow-DOM clicks, fills, selects, details expansion, page evaluation,
+assertions, and screenshots.
+
 ## PNG color tools
 
 ```sh
